@@ -35,15 +35,18 @@ const ScholarshipForm = () => {
     data.append("essay", formData.essay);
 
     try {
-      const res = await fetch("http://localhost:3001/api/scholarship-form", {
-        method: "POST",
-        body: data,
-      });
+      const apiUrl = process.env.REACT_APP_API_URL + '/api/scholarships';
 
-      if (res.ok) {
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.error('Error:', error));
+      
+
+      if (apiUrl.ok) {
         alert("Form submitted successfully!");
       } else {
-        const errorText = await res.text();
+        const errorText = await apiUrl.text();
         alert("Server error: " + errorText);
       }
     } catch (err) {
