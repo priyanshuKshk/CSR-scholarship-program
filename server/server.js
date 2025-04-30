@@ -11,7 +11,12 @@ const StudentModel = require("./models/Employee.js"); // Make sure this points t
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+
+app.use(cors({
+  origin: 'https://csr-scholarship-program.onrender.com', // your frontend URL
+  credentials: true
+}));
 
 // Load environment variables
 dotenv.config();
@@ -91,7 +96,8 @@ app.post("/api/scholarship-form", upload.single("marksheet"), (req, res) => {
 // Serve uploaded files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
