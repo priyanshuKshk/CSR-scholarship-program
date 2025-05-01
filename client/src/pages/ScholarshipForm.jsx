@@ -41,7 +41,7 @@ const ScholarshipForm = () => {
       // const apiUrl = process.env.REACT_APP_API_URL + '/api/scholarships';
   
       console.log("Ruuning")
-      const response = await fetch("http://localhost:3001/api/scholarship-form", {
+      const response = await fetch("https://csr-scholarship-program.onrender.com/scholarship-form", {
   method: "POST",
   body: formData, // Don't set Content-Type manually — browser sets it for FormData
 });
