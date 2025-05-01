@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const ScholarshipForm = () => {
+  const [fileInput, setFileInput] = useState(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,6 +24,8 @@ const ScholarshipForm = () => {
   };
 
   const handleSubmit = async (e) => {
+    
+
     e.preventDefault();
     const data = new FormData();
     data.append("name", formData.firstName + " " + formData.lastName);
@@ -31,22 +34,22 @@ const ScholarshipForm = () => {
     data.append("course", formData.course);
     data.append("qualification", formData.qualification);
     data.append("marks", formData.marks);
-    data.append("marksheet", formData.marksheet); // ✅ file
+    data.append("marksheet", fileInput); // ✅ file
     data.append("essay", formData.essay);
 
     try {
-      const apiUrl = process.env.REACT_APP_API_URL + '/api/scholarships';
-
-      fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error('Error:', error));
-      
-
-      if (apiUrl.ok) {
+      // const apiUrl = process.env.REACT_APP_API_URL + '/api/scholarships';
+  
+      console.log("Ruuning")
+      const response = await fetch("http://localhost:3001/api/scholarship-form", {
+  method: "POST",
+  body: formData, // Don't set Content-Type manually — browser sets it for FormData
+});
+      if (response.ok) {
         alert("Form submitted successfully!");
+      
       } else {
-        const errorText = await apiUrl.text();
+        const errorText = await response.text();
         alert("Server error: " + errorText);
       }
     } catch (err) {
@@ -157,7 +160,7 @@ const ScholarshipForm = () => {
               type="file"
               name="marksheet"
               accept=".pdf,.jpg,.png"
-              onChange={handleChange}
+              onChange={(e) => setFileInput(e.target.files[0])}
               required
               className="w-full"
             />

@@ -7,16 +7,13 @@ const fs = require("fs");
 const multer = require("multer");
 
 const EmployeeModel = require("./models/Employee.js");
-const StudentModel = require("./models/Employee.js"); // Make sure this points to the correct Student schema file
+const StudentModel = require("./models/StudentModel.js"); // Make sure this points to the correct Student schema file
 
 const app = express();
 app.use(express.json());
 
 
-app.use(cors({
-  origin: 'https://csr-scholarship-program.onrender.com', // your frontend URL
-  credentials: true
-}));
+app.use(cors());
 
 // Load environment variables
 dotenv.config();
@@ -59,7 +56,7 @@ app.post("/login", (req, res) => {
       }
     } else {
       res.json("User not found");
-    }
+    }  
   });
 });
 
@@ -71,26 +68,16 @@ app.post("/signup", (req, res) => {
 });
 
 // Scholarship form submission route
-app.post("/api/scholarship-form", upload.single("marksheet"), (req, res) => {
-  const { name, email, phone, course, qualification, marks, essay } = req.body;
-  const marksheet = req.file ? req.file.filename : "";
+app.post('/api/scholarship-form', upload.none(), (req, res) => {
+  try {
+    console.log("Received body:", req.body); // Check this in terminal
+    // Example: req.body.name, req.body.email
 
-  const newStudent = new StudentModel({
-    firstName,
-    lastName,
-    email,
-    phone,
-    course,
-    qualification,
-    marks,
-    marksheet,
-    essay,
-  });
-
-  newStudent
-    .save()
-    .then((student) => res.json(student))
-    .catch((err) => res.status(500).json({ error: err.message }));
+    res.status(200).send("Form submitted");
+  } catch (err) {
+    console.error("Server error:", err);
+    res.status(500).send("Something went wrong");
+  }
 });
 
 // Serve uploaded files
