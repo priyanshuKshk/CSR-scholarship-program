@@ -12,14 +12,14 @@ const StudentModel = require("./models/StudentModel.js"); // Make sure this poin
 const app = express();
 app.use(express.json());
 
-
+require('dotenv').config();
 app.use(cors());
 
 // Load environment variables
 dotenv.config();
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/employee", {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
