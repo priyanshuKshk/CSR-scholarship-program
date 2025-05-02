@@ -44,12 +44,12 @@ export default function Home() {
 
   {/* Photo Slide 1 */}
   <SwiperSlide>
-    <img src="../src/images/photo2.jpg" alt="Scholarship Event 2" className="w-full h-64 object-cover" />
+    <img src="./src/images/photo2.jpg" alt="Scholarship Event 2" className="w-full h-64 object-cover" />
   </SwiperSlide>
 
   {/* Photo Slide 2 */}
   <SwiperSlide>
-    <img src="../src/images/photo3.jpeg" alt="Scholarship Event 3" className="w-full h-64 object-cover" />
+    <img src="./src/images/photo3.jpeg" alt="Scholarship Event 3" className="w-full h-64 object-cover" />
   </SwiperSlide>
 </Swiper>
 
