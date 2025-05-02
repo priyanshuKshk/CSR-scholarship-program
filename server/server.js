@@ -70,7 +70,7 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
   
     try {
     const { firstName, lastName, email, phone, course, qualification, marks, essay } = req.body;
-    console.log(req.body)
+  
     const marksheet = req.file?.filename || "";
 
     const newStudent = new StudentModel({
@@ -86,7 +86,7 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
     });
 
      const student = await newStudent.save();
-     console.log(student)
+    
 
      // Example: req.body.name, req.body.email
  
