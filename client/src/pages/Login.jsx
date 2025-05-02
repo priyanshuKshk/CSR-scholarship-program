@@ -9,7 +9,7 @@ const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     // Handle login logic (e.g., send request to backend)
-    axios.post("http://localhost:3001/login", {email, password}).then((result)=>{console.log(result)
+    axios.post("https://csr-scholarship-program-1.onrender.com/login"||"http://localhost:3001/login", {email, password}).then((result)=>{
       if (result.data === "Login successful") {
         alert("Login successful");
         navigate("/home");

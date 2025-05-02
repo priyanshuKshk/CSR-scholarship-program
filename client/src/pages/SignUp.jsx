@@ -11,9 +11,9 @@ const SignUp = () => {
 const navigate = useNavigate();
   const handleSignUp = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3001/signup", {firstName, lastName, email, password})
-    .then((result)=>{console.log(result)
-navigate('/login')
+    axios.post("https://csr-scholarship-program-1.onrender.com/signup"||"http://localhost:3001/signup", {firstName, lastName, email, password})
+    .then(()=>{
+navigate('/home')
 
     })
     .catch((err)=>console.log(err));
@@ -25,7 +25,6 @@ navigate('/login')
     }
 
     // Handle sign up logic (e.g., send request to backend)
-    console.log({ firstName, lastName, email, password });
   };
 
   return (

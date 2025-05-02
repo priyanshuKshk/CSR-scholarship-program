@@ -1,7 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ScholarshipForm = () => {
+  const navigate = useNavigate();
   const [fileInput, setFileInput] = useState(null);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -48,6 +50,7 @@ const ScholarshipForm = () => {
 });
       if (response.ok) {
         alert("Form submitted successfully!");
+        navigate("/home");
       
       } else {
         const errorText = await response.text();
