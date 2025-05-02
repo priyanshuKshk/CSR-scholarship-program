@@ -7,7 +7,9 @@ const fs = require("fs");
 const multer = require("multer");
 
 const EmployeeModel = require("./models/Employee.js");
-const StudentModel = require("./models/StudentModel.js"); // Make sure this points to the correct Student schema file
+const { default: StudentModel } = require("./models/StudentModel.js");
+// const StudentModel = require("./models/StudentModel.js"); // Make sure this points to the correct Student schema file
+
 
 const app = express();
 app.use(express.json());
@@ -15,15 +17,11 @@ app.use(express.json());
 require('dotenv').config();
 app.use(cors());
 
-// Load environment variables
-dotenv.config();
+// Add this at the top if you want to use `dotenv` directly
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log("MongoDB connected"))
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log("MongoDB connecteded"))
 .catch((err) => console.error("MongoDB connection error:", err));
 
 // Ensure uploads folder exists
@@ -68,12 +66,33 @@ app.post("/signup", (req, res) => {
 });
 
 // Scholarship form submission route
-app.post('/api/scholarship-form', upload.none(), (req, res) => {
-  try {
-    console.log("Received body:", req.body); // Check this in terminal
-    // Example: req.body.name, req.body.email
+app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => {
+  
+    try {
+    const { firstName, lastName, email, phone, course, qualification, marks, essay } = req.body;
+    console.log(req.body)
+    const marksheet = req.file?.filename || "";
 
-    res.status(200).send("Form submitted");
+    const newStudent = new StudentModel({
+      firstName,
+      lastName,
+      email,
+      phone,
+      course,
+      qualification,
+      marks,
+      marksheet,
+      essay,
+    });
+
+     const student = await newStudent.save();
+     console.log(student)
+
+     // Example: req.body.name, req.body.email
+ 
+  res.status(200).json({ message: "Application submitted successfully!" });
+  
+  
   } catch (err) {
     console.error("Server error:", err);
     res.status(500).send("Something went wrong");
@@ -83,7 +102,7 @@ app.post('/api/scholarship-form', upload.none(), (req, res) => {
 // Serve uploaded files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-const PORT = process.env.PORT || 3001;
+ const PORT = 3001||process.env.PORT ;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

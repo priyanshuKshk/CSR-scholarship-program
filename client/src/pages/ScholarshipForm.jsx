@@ -28,7 +28,8 @@ const ScholarshipForm = () => {
 
     e.preventDefault();
     const data = new FormData();
-    data.append("name", formData.firstName + " " + formData.lastName);
+    data.append("firstName", formData.firstName);
+    data.append("lastName", formData.lastName);
     data.append("email", formData.email);
     data.append("phone", formData.phone);
     data.append("course", formData.course);
@@ -39,11 +40,11 @@ const ScholarshipForm = () => {
 
     try {
       // const apiUrl = process.env.REACT_APP_API_URL + '/api/scholarships';
-  
+      console.log("fileInput:", fileInput);
       console.log("Ruuning")
-      const response = await fetch("https://csr-scholarship-program.onrender.com/scholarship-form", {
+      const response = await fetch("http://localhost:3001/api/scholarship-form"||"https://csr-scholarship-program.onrender.com/api/scholarship-form", {
   method: "POST",
-  body: formData, // Don't set Content-Type manually — browser sets it for FormData
+  body: data, // Don't set Content-Type manually — browser sets it for FormData
 });
       if (response.ok) {
         alert("Form submitted successfully!");

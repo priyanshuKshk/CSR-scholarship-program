@@ -13,6 +13,7 @@ import SignUp from './pages/SignUp'
 import ContactUs from './pages/ContactUs'
 import ScholarshipForm from './pages/ScholarshipForm'
 import EligibilityPage from './pages/EligibilityPage'
+import Resources from './pages/Resources'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login/>} />
       <Route path="/signup" element={<SignUp/>} />
       <Route path="/contact" element={<ContactUs/>} />
+      <Route path="/resources" element={<Resources/>} />
       
       </Route>
   )
