@@ -12,5 +12,5 @@ const StudentSchema = new mongoose.Schema({
   essay: { type: String, required: true }
 }, { timestamps: true });
 
-const StudentModel = mongoose.model('studentData', StudentSchema);
+const StudentModel = mongoose.model('students ', StudentSchema);
 module.exports = StudentModel;
