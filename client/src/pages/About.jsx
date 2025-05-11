@@ -1,7 +1,5 @@
 const About = () => {
   const initiatives = [
-    "SMG Asha Education Centers - Remedial Education",
-    "Pathashala – Govt schools transformation and teacher training",
     "Scholarships",
     "Fincharcha – Financial Literacy",
     "Saarthi – Career Counselling",

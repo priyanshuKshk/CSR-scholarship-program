@@ -1,6 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { User, Mail, Phone, FileText, GraduationCap, BookOpenCheck } from "lucide-react";
 
 const ScholarshipForm = () => {
   const navigate = useNavigate();
@@ -26,32 +27,22 @@ const ScholarshipForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    
-
     e.preventDefault();
     const data = new FormData();
-    data.append("firstName", formData.firstName);
-    data.append("lastName", formData.lastName);
-    data.append("email", formData.email);
-    data.append("phone", formData.phone);
-    data.append("course", formData.course);
-    data.append("qualification", formData.qualification);
-    data.append("marks", formData.marks);
-    data.append("marksheet", fileInput); // ✅ file
-    data.append("essay", formData.essay);
+    Object.entries(formData).forEach(([key, value]) => {
+      data.append(key, key === "marksheet" ? fileInput : value);
+    });
 
     try {
-      // const apiUrl = process.env.REACT_APP_API_URL + '/api/scholarships';
-      console.log("fileInput:", fileInput);
-      console.log("Ruuning")
-      const response = await fetch("http://localhost:3001/api/scholarship-form"||"https://csr-scholarship-program.onrender.com/api/scholarship-form", {
-  method: "POST",
-  body: data, // Don't set Content-Type manually — browser sets it for FormData
-});
+      const response = await fetch(
+        "http://localhost:3001/api/scholarship-form", {
+        method: "POST",
+        body: data,
+      });
+
       if (response.ok) {
         alert("Form submitted successfully!");
         navigate("/home");
-      
       } else {
         const errorText = await response.text();
         alert("Server error: " + errorText);
@@ -63,136 +54,82 @@ const ScholarshipForm = () => {
   };
 
   return (
-    <div className="tagesschrift-regular flex flex-col items-center px-4 md:px-20 py-10 space-y-12">
-      <section className="w-full max-w-3xl">
-        <h2 className="text-3xl font-bold text-center mb-8">
-          Student Scholarship Application Form
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="tagesschrift-regular flex flex-col items-center px-4 md:px-20 py-10 space-y-12"
+    >
+      <motion.section
+        className="w-full max-w-3xl bg-white shadow-xl rounded-2xl p-8"
+        initial={{ scale: 0.95 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h2 className="text-blue-900 text-3xl font-bold text-center mb-8">
+          🎓 Student Scholarship Application Form
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Form fields */}
-          {/* Same fields as before */}
-          <div>
-            <label className="block text-gray-700 mb-2">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-lg px-4 py-2"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-lg px-4 py-2"
-            />
-          </div>
+          {[
+            { label: "First Name", name: "firstName", type: "text", Icon: User },
+            { label: "Last Name", name: "lastName", type: "text", Icon: User },
+            { label: "Email", name: "email", type: "email", Icon: Mail },
+            { label: "Phone Number", name: "phone", type: "tel", Icon: Phone },
+            { label: "Course Applied For", name: "course", type: "text", Icon: BookOpenCheck },
+            { label: "Qualification", name: "qualification", type: "text", Icon: GraduationCap },
+            { label: "Marks", name: "marks", type: "text", Icon: FileText },
+          ].map(({ label, name, type, Icon }) => (
+            <div key={name}>
+              <label className="text-gray-900 mb-2 flex items-center gap-2">
+                <Icon className="h-5 w-5 text-blue-700" />
+                {label}
+              </label>
+              <input
+                type={type}
+                name={name}
+                value={formData[name]}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              />
+            </div>
+          ))}
 
           <div>
-            <label className="block text-gray-700 mb-2">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-lg px-4 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 mb-2">Phone Number</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-lg px-4 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 mb-2">
-              Course Applied For
-            </label>
-            <input
-              type="text"
-              name="course"
-              value={formData.course}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-lg px-4 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 mb-2">Qualification</label>
-            <input
-              type="text"
-              name="qualification"
-              value={formData.qualification}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-lg px-4 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 mb-2">Marks</label>
-            <input
-              type="text"
-              name="marks"
-              value={formData.marks}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-lg px-4 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 mb-2">
-             Qualification markssheet (PDF/JPG/PNG)
-            </label>
+            <label className="block text-gray-900 mb-2">Upload Marksheet (PDF/JPG/PNG)</label>
             <input
               type="file"
               name="marksheet"
               accept=".pdf,.jpg,.png"
               onChange={(e) => setFileInput(e.target.files[0])}
               required
-              className="w-full"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white"
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 mb-2">
-              Why you deserve this scholarship :-
-            </label>
+            <label className="block text-gray-900 mb-2">Why you deserve this scholarship:</label>
             <textarea
               name="essay"
               value={formData.essay}
               onChange={handleChange}
               rows="4"
               required
-              className="w-full border rounded-lg px-4 py-2"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+            className="w-full bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-lg"
           >
-            Submit Application
-          </button>
+            🚀 Submit Application
+          </motion.button>
         </form>
-      </section>
-    </div>
+      </motion.section>
+    </motion.div>
   );
 };
 

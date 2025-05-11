@@ -1,8 +1,16 @@
-
-
-tagesschrift-regular {
-    font-family: "Tagesschrift", system-ui;
-    font-weight: 400;
-    font-style: normal;
+@media (max-width: 640px) {
+    #myElement {
+      display: none;
+    }
+    #displayBlock{
+        display: block;
+    }
+  }
+  
+@media (min-width: 820px) {
+    
+    #displayFlex{
+        display: flex;
+    }
   }
   
