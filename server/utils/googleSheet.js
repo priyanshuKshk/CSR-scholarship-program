@@ -1,5 +1,4 @@
 const { google } = require('googleapis');
-require('dotenv').config();
 const keys = {
   type: "service_account",
   project_id: process.env.GOOGLE_PROJECT_ID,
@@ -12,8 +11,7 @@ const keys = {
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
   client_x509_cert_url: process.env.GOOGLE_CLIENT_X509_CERT_URL,
 };
-
-
+require('dotenv').config();
 
 const auth = new google.auth.GoogleAuth({
   credentials: keys,
@@ -21,7 +19,7 @@ const auth = new google.auth.GoogleAuth({
 });
 
 const SHEET_ID = process.env.GOOGLE_SHEET_ID;
-console.log('Sheet ID:', SHEET_ID); // Add this line temporarily
+ // Add this line temporarily
 
 async function appendToSheet(dataArray) {
   const client = await auth.getClient();
