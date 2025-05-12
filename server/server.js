@@ -132,14 +132,19 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
- const PORT = process.env.PORT|| 3001;
- 
- app.get('/', (req, res) => {
-  res.send('✅ Server is up!');
+app.get('/', (req, res) => {
+  res.send('✅ Server is running!');
 });
 
+// Get PORT from environment (Render will provide this)
+const PORT = process.env.PORT;
 
+if (!PORT) {
+  throw new Error("❌ PORT is not defined. Render requires binding to process.env.PORT.");
+}
+
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`🚀 Server is running on port ${PORT}`);
 });
 
