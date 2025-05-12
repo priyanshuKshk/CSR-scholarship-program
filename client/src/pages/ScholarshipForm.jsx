@@ -35,8 +35,8 @@ const ScholarshipForm = () => {
 
     try {
       const response = await fetch(
-        "https://csr-scholarship-program-1.onrender.com/api/scholarship-form", 
-      //  "http://localhost:3001/api/scholarship-form",
+        "https://csr-scholarship-program-1.onrender.com/api/scholarship-form" 
+      || "http://localhost:3001/api/scholarship-form",
        {
         method: "POST",
         body: data,
