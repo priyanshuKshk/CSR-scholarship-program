@@ -3,18 +3,22 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiMail, FiLock } from 'react-icons/fi';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
+const {login}=useAuth();
+  const { profileImage } = useAuth();
   const handleLogin = (e) => {
     e.preventDefault();
     axios
       .post(
-        "https://csr-scholarship-program-1.onrender.com/login" || "http://localhost:3001/login",
-        { email, password }
+        "https://csr-scholarship-program-1.onrender.com/login",
+      //  "http://localhost:3001/login",
+       { email, password }
       )
       .then((result) => {
         if (result.data === "Login successful") {
@@ -53,6 +57,7 @@ const Login = () => {
                 id="email"
                 className="p-3 w-full outline-none"
                 value={email}
+                placeholder="Enter your email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
@@ -72,20 +77,32 @@ const Login = () => {
                 id="password"
                 className="p-3 w-full outline-none"
                 value={password}
+                placeholder="Enter your password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            type="submit"
-            className="w-full py-3 bg-blue-900 text-white rounded-md hover:bg-blue-600 focus:outline-none transition-all"
-          >
-            Login
-          </motion.button>
+        <div className="flex flex-col items-center mt-10">
+      {!isLoggedIn ? (
+        <button
+          onClick={handleLogin}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Login
+        </button>
+      ) : (
+        <div className="flex items-center gap-4">
+          <img
+            src={profileImage}
+            alt="Profile"
+            className="w-16 h-16 rounded-full border"
+          />
+          <p className="text-lg font-semibold">Welcome back!</p>
+        </div>
+      )}
+    </div>
         </form>
 
         <div className="mt-4 text-center">

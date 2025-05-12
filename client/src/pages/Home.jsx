@@ -34,7 +34,7 @@ export default function Home() {
               className="w-full h-64 object-cover"
               style={{
                 maxWidth: "100vw",
-                height: "40vh",
+                height: "50vh",
                 borderRadius: "8px",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
               }}
@@ -48,7 +48,7 @@ export default function Home() {
               className="w-full h-64 object-cover"
               style={{
                 maxWidth: "100vw",
-                height: "40vh",
+                height: "50vh",
                 borderRadius: "8px",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
               }}
@@ -67,11 +67,11 @@ export default function Home() {
           style={{
             marginTop: "10px",
             width: "95vw",
-            backgroundColor: "#36AAC9",
+            
           }}
         >
           <h3 className="text-xl font-bold mb-2">Check Eligibility Criteria and Apply</h3>
-          <p className="text-gray-200">
+          <p className="text-gray-100">
             Know who can apply for the scholarship and what documents are needed and then apply for the scholarship.
           </p>
         </motion.div>
@@ -94,25 +94,26 @@ export default function Home() {
                 icon: "📄",
                 title: "Apply",
                 desc: "Fill the application form online with all required documents.",
-                bg: "#F7768D",
+              
               },
               {
                 icon: "🔍",
                 title: "Shortlisting",
                 desc: "Our team carefully evaluates all applications.",
-                bg: "#D870C7",
+                bg:""
               },
               {
                 icon: "💬",
                 title: "Interview",
                 desc: "Selected candidates are invited for a personal interview.",
-                bg: "#7E75D0",
+              
+                textColor: "white",
               },
               {
                 icon: "🎉",
                 title: "Selection",
                 desc: "Final candidates are awarded the scholarship.",
-                bg: "#36AAC9",
+                bg: "",
               },
             ].map((step, i) => (
               <motion.div
@@ -129,7 +130,7 @@ export default function Home() {
               >
                 <div className="text-5xl mb-4">{step.icon}</div>
                 <h3 className="text-xl text-gray-100 font-semibold mb-2">{step.title}</h3>
-                <p className="text-gray-200">{step.desc}</p>
+                <p className="text-gray-100">{step.desc}</p>
               </motion.div>
             ))}
           </div>

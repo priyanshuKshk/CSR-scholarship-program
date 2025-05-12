@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
-
+const ExcelJS = require('exceljs');
 const EmployeeModel = require("./models/Employee.js");
 const { default: StudentModel } = require("./models/StudentModel.js");
 // const StudentModel = require("./models/StudentModel.js"); // Make sure this points to the correct Student schema file
@@ -45,25 +45,53 @@ const upload = multer({ storage });
 // Login route
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  EmployeeModel.findOne({ email, password }).then((user) => {
+EmployeeModel.findOne({ email }).then((user) => {
     if (user) {
-      if (user.password === password) {
-        res.json("Login successful");
-      } else {
-        res.json("Invalid password");
-      }
+      // Use bcrypt to compare hashed password
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (result) {
+          res.json("Login successful");
+        } else {
+          res.json("Invalid password");
+        }
+      });
     } else {
       res.json("User not found");
-    }  
+    }
   });
 });
 
 // Signup route
-app.post("/signup", (req, res) => {
-  EmployeeModel.create(req.body)
-    .then((employee) => res.json(employee))
-    .catch((err) => res.json(err));
+const bcrypt = require("bcrypt");
+const appendToSheet = require("./utils/googleSheet.js");
+app.post("/signup", async (req, res) => {
+  try {
+    const { firstName,lastName,phone,email,password,} = req.body;
+
+    // Hash the password before saving to the database
+    const hashedPassword = await bcrypt.hash(password, 10);  // Salt rounds set to 10
+
+    // Create a new employee with the hashed password and other fields
+
+    const newEmployee = new EmployeeModel({
+      firstName,
+      lastName,
+      phone,
+      email,
+      password: hashedPassword,
+      
+    });
+
+    // Save the employee to the database
+    const employee = await newEmployee.save();
+    res.json(employee);
+    
+  } catch (err) {
+    console.error("Error during signup:", err);
+    res.status(500).json({ error: "Failed to sign up user" });
+  }
 });
+
 
 // Scholarship form submission route
 app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => {
@@ -86,10 +114,11 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
     });
 
      const student = await newStudent.save();
-    
+     await appendToSheet([
+      firstName, lastName, email, phone, course, qualification, marks, essay, marksheet
+    ]);
 
-     // Example: req.body.name, req.body.email
- 
+
   res.status(200).json({ message: "Application submitted successfully!" });
   
   
@@ -101,6 +130,7 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
 
 // Serve uploaded files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
  const PORT = 3001||process.env.PORT ;
 app.listen(PORT, () => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FiMenu, FiX, FiBookOpen, FiInfo, FiUser, FiLogIn, FiUserPlus } from "react-icons/fi";
+import { FiMenu, FiX, FiBookOpen, FiInfo, FiUser, FiLogIn, FiUserPlus, FiLogOut } from "react-icons/fi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../assets/image.png";
@@ -8,23 +8,26 @@ import "../index.css";
 import { MdWork } from "react-icons/md";
 import { GiTeacher } from "react-icons/gi";
 import { BsFillPeopleFill } from "react-icons/bs";
+import { useAuth } from "../context/AuthContext";
+import { SiOpenapiinitiative } from "react-icons/si";
+import { GrResources } from "react-icons/gr";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdownInitiatives, setShowDropdownInitiatives] = useState(false);
   const [showDropdownResources, setShowDropdownResources] = useState(false);
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const { isLoggedIn, logout } = useAuth();
 
-  useEffect(() => {
-    setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-  }, []);
   
+
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
-    navigate("/login");
-  };
+  const confirmLogout = window.confirm("Do you really want to logout?");
+  if (confirmLogout) {
+    // Proceed with logout
+    logout(); // assuming you have a logout function in context
+  }
+};
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleDropdownInitiatives = () => setShowDropdownInitiatives(!showDropdownInitiatives);
@@ -67,8 +70,6 @@ const Header = () => {
               style={{
                 maxWidth: "60px",
                 maxHeight: "60px",
-                borderRadius: "50%",
-                border: "2px solid #1e3a8a",
                 padding: "4px",
               }}
             />
@@ -98,7 +99,7 @@ const Header = () => {
               onClick={toggleDropdownInitiatives}
               className="flex items-center text-gray-700 hover:text-blue-900 font-medium"
               style={{ position: "relative" }}
-            >
+            ><SiOpenapiinitiative />
               Initiatives
               <ChevronDown className="ml-1 h-4 w-4" />
             </div>
@@ -126,7 +127,8 @@ const Header = () => {
               onClick={toggleDropdownResources}
               className="flex items-center text-gray-700 hover:text-blue-900 font-medium"
               style={{ position: "relative" }}
-            >
+            ><GrResources />
+
               Resources
               <ChevronDown className="ml-1 h-4 w-4" />
             </div>
@@ -156,14 +158,15 @@ const Header = () => {
   {isLoggedIn ? (
     <button
       onClick={handleLogout}
-      className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500 transition"
+      className="flex items-center space-x-2 bg-red-600  px-4 py-2 rounded-lg hover:bg-red-500 transition"
     >
       <FiLogOut />
       <span>Logout</span>
+    
     </button>
   ) : (
     <>
-      <NavLink
+       <NavLink
         to="/login"
         className={({ isActive }) =>
           `flex items-center space-x-1 ${isActive
@@ -178,7 +181,7 @@ const Header = () => {
       <NavLink
         to="/signup"
         className={({ isActive }) =>
-          `flex items-center space-x-1 ${isActive
+        `  flex items-center space-x-1 ${isActive
             ? "bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-normal"
             : "text-gray-700 hover:text-blue-600 font-normal"}`
         }
@@ -201,12 +204,13 @@ const Header = () => {
             transition={{ duration: 0.3 }}
             className="md:hidden bg-white shadow-md absolute top-[70px] left-0 w-[30vw] h-screen z-40 border-r"
           >
-            <nav className="flex flex-col items-start space-y-4 p-4">
+            <nav className="flex flex-col items-start space-y-4 p-4" >
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="text-gray-700 hover:text-blue-600 font-medium"
+                  className=" flex items-center text-gray-700 hover:text-blue-600 font-medium"
+                  style={{spaceBetween:"10px"}}
                   onClick={toggleMenu}
                 >
                   {item.icon}
@@ -218,7 +222,8 @@ const Header = () => {
                 <button
                   onClick={toggleDropdownResources}
                   className=" flex items-center text-gray-700 hover:text-blue-600 font-medium" 
-                >
+                ><GrResources />
+                  
                   Resources
                   <motion.span animate={{ rotate: showDropdownResources ? 180 : 0 }}>
                     <ChevronDown className="ml-1 h-4 w-4" />
@@ -256,7 +261,7 @@ const Header = () => {
                 <button
                   onClick={toggleDropdownInitiatives}
                   className=" flex items-center text-gray-700 hover:text-blue-600 font-medium" 
-                >
+                > <SiOpenapiinitiative />
                   Initiatives
                   <motion.span animate={{ rotate: showDropdownInitiatives ? 180 : 0 }}>
                     <ChevronDown className="ml-1 h-4 w-4" />

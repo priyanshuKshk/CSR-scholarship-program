@@ -29,9 +29,7 @@ const AaganwadiProgram = () => {
 
         {/* First Section: Image Left - Text Right */}
         <div
-          className="grid md:grid-cols-2 items-center gap-8 px-10 py-12"
-          style={{ display: "flex" }}
-          id="displayBlock"
+         className="flex space-x-2 p-3 px-3"  id="displayBlock"
         >
           <div>
             <motion.img
@@ -39,11 +37,12 @@ const AaganwadiProgram = () => {
               alt="Skill Training"
               className="w-60 h-60 object-cover rounded-full mx-auto shadow-xl"
               style={{
-                maxWidth: "25vw",
-                height: "25vw",
-                borderRadius: "60%",
+                Width: "100vw",
+                height: "auto",
+                borderRadius: "8px",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                margin: "10px ",
+                marginRight: "10px ",
+                marginTop: "10px ",
               }}
               initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -55,7 +54,9 @@ const AaganwadiProgram = () => {
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            style={{ margin: "10px" }}
+            style={{ margin: "20px" ,
+              paddingLeft: "10px",
+            }}
           >
             <h2 className=" text-2xl font-bold text-pink-700 mb-2">
               Skill Development
@@ -89,15 +90,13 @@ const AaganwadiProgram = () => {
 
         {/* Second Section: Text Left - Image Right */}
         <div
-          className="grid md:grid-cols-2 items-center gap-8 px-10 pb-12"
-          style={{ display: "flex" }}
-          id="displayBlock"
+         className="flex space-x-2 p-3 px-3"  id="displayBlock"
         >
           <motion.div
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            style={{ margin: "10px" }}
+            style={{ marginLeft: "20px" }}
           >
             <h2 className="text-2xl font-bold text-pink-700 mb-2">
               Community Engagement
@@ -125,21 +124,23 @@ const AaganwadiProgram = () => {
               </p>
             </ul>
           </motion.div>
+          <div>
           <motion.img
-            src="/images/aaganwadi2.jpeg"
-            alt="Community Engagement"
-            className="w-60 h-60 object-cover rounded-full mx-auto shadow-xl"
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            style={{
-              maxWidth: "25vw",
-              height: "25vw",
-              borderRadius: "60%",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-              margin: "0px 10px 10px 10px ",
-            }}
-          />
+              src="/images/aaganwadi2.jpeg"
+              alt="Skill Training"
+              className="w-60 h-60 object-cover rounded-full mx-auto shadow-xl"
+              style={{
+                Width: "100vw",
+                height: "auto",
+                borderRadius: "8px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                marginRight: "10px ",
+                marginTop: "10px",
+              }}
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            /></div>
         </div>
       </motion.section>
     </main>

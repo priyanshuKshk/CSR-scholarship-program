@@ -13,13 +13,12 @@ import SignUp from './pages/SignUp'
 import ContactUs from './pages/ContactUs'
 import ScholarshipForm from './pages/ScholarshipForm'
 import EligibilityPage from './pages/EligibilityPage'
-import Resources from './pages/Resources'
-import Initiatives from './pages/Initiatives'
 import Fincharcha from './pages/Fincharcha'
 import Saarthi from './pages/Saarthi'
 import Aaganwadi from './pages/Aaganwadi'
 import Testimonial from './pages/Testimonials'
 import AnnualReport from './pages/AnnualReport'
+import { AuthProvider } from './context/AuthContext'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -30,7 +29,7 @@ const router = createBrowserRouter(
         <Route path="/scholarship-form" element={<ScholarshipForm />} />
         
       <Route path="/about" element={<About />} />
-      <Route path="/initiatives" element={<Initiatives />} />
+  
       <Route path="/fincharcha" element={<Fincharcha/>} />
       <Route path="/saarthi" element={<Saarthi/>} />
       <Route path="/aaganwadi" element={<Aaganwadi/>} />
@@ -49,6 +48,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <AuthProvider>
     <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 ) 

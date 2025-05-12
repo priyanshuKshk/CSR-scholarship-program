@@ -35,7 +35,9 @@ const ScholarshipForm = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3001/api/scholarship-form", {
+        "https://csr-scholarship-program-1.onrender.com/api/scholarship-form", 
+      //  "http://localhost:3001/api/scholarship-form",
+       {
         method: "POST",
         body: data,
       });
@@ -88,6 +90,7 @@ const ScholarshipForm = () => {
                 type={type}
                 name={name}
                 value={formData[name]}
+                placeholder={`Enter your ${label.toLowerCase()}`}
                 onChange={handleChange}
                 required
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"

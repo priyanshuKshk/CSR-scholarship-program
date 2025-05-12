@@ -49,7 +49,7 @@ export default function Fincharcha() {
                 alt="Community Engagement Model"
                 className="w-full h-full object-cover"
                 style={{
-                  maxWidth: "50vw",
+                  maxWidth: "100vw",
                   height: "auto",
                   borderRadius: "8px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
@@ -160,7 +160,7 @@ export default function Fincharcha() {
                 alt="Organizational Training Model"
                 className="w-full h-full object-cover flex flex-col"
                 style={{
-                  maxWidth: "50vw",
+                  maxWidth: "100vw",
                   height: "auto",
                   borderRadius: "8px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
