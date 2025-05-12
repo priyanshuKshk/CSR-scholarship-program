@@ -132,7 +132,7 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
- const PORT = process.env.PORT||3001  ;
+ const PORT = 3001 ||process.env.PORT ;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
