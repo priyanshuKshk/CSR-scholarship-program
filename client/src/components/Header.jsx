@@ -76,7 +76,7 @@ const Header = () => {
           </Link>
 
           <Link to="/">
-            <div className="text-2xl font-bold text-blue-900" id="myElement">Scholarships</div>
+            <div className="text-2xl font-bold text-blue-900" id="displayNone">Scholarships</div>
           </Link>
         </div>
 
@@ -175,7 +175,7 @@ const Header = () => {
         }
       >
         <FiLogIn />
-        <span className="ml-1" style={{paddingLeft:"5px"}}> Login</span>
+        <span className="ml-1 " style={{paddingLeft:"5px"}} id="myElement" > Login</span>
       </NavLink>
 
       <NavLink
@@ -187,7 +187,7 @@ const Header = () => {
         }
       >
         <FiUserPlus />
-        <span className="ml-1" style={{paddingLeft:"5px"}}> Sign Up</span>
+        <span className="ml-1" style={{paddingLeft:"5px"}} id="myElement"> Sign Up</span>
       </NavLink>
     </>
   )}

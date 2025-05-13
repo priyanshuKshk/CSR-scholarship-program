@@ -3,9 +3,10 @@ import React from "react";
 import "../index.css";
 const AaganwadiProgram = () => {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-100 via-pink-200 to-pink-300 p-6 flex items-center justify-center">
+    <main className="min-h-screen bg-gradient-to-br from-pink-100 via-pink-200 to-pink-300 p-6 flex items-center justify-center" id="paddingLow"
+    >
       <motion.section
-        className="bg-white/70 backdrop-blur-lg border border-white/30 rounded-3xl shadow-2xl max-w-6xl w-full overflow-hidden"
+        className="bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -15,8 +16,9 @@ const AaganwadiProgram = () => {
           <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-4">
             Aaganwadi Program
           </h1>
-          <div className="w-24 h-2 bg-blue-900 mx-auto mb-6 rounded-full"></div>
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-16">
+          <div className="w-24 h-2 bg-blue-900 mx-auto mb-6 rounded-full"
+          style={{padding:"0"}}></div>
+          <div className="bg-white rounded-xl shadow-lg mb-16">
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
               Our
               <strong className="text-blue-900"> Aaganwadi program </strong>
@@ -41,8 +43,9 @@ const AaganwadiProgram = () => {
                 height: "auto",
                 borderRadius: "8px",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                marginRight: "10px ",
+                marginRight: "5px ",
                 marginTop: "10px ",
+                padding:"10px"
               }}
               initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -54,15 +57,15 @@ const AaganwadiProgram = () => {
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            style={{ margin: "20px" ,
-              paddingLeft: "10px",
+            style={{ margin: "5px" ,
+              paddingLeft: "2px",
             }}
           >
             <h2 className=" text-2xl font-bold text-pink-700 mb-2">
               Skill Development
             </h2>
 
-            <ul className="list-disc pl-5 space-y-2 text-gray-800 text-lg">
+            <ul className="list-none  space-y-2 text-gray-800 text-lg">
               <p className="text-gray-800 text-lg  rounded-xl shadow-lg p-8 mb-16">
                 <li>
                   Vocational training equips women with practical skills such as
@@ -102,7 +105,7 @@ const AaganwadiProgram = () => {
               Community Engagement
             </h2>
 
-            <ul className="list-disc pl-5 space-y-2 text-gray-800 text-lg">
+            <ul className="list-none pl-5 space-y-2 text-gray-800 text-lg">
               <p className="text-gray-800 text-lg  rounded-xl shadow-lg p-8 mb-16">
                 <li>
                   Aaganwadi centers act as community anchors, fostering unity

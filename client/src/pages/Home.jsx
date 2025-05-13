@@ -6,7 +6,8 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import { motion } from 'framer-motion'
-
+import Lottie from "lottie-react";
+import arrowAnim from "../arrow.json";
 export default function Home() {
   return (
     <div className="bg-gradient-to-r from-primary to-secondary text-black" style={{ paddingTop: "10px" }}>
@@ -33,8 +34,8 @@ export default function Home() {
               alt="Scholarship Event 2"
               className="w-full h-64 object-cover"
               style={{
-                maxWidth: "100vw",
-                height: "50vh",
+                Width: "100vw",
+                height: "45vh",
                 borderRadius: "8px",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
               }}
@@ -47,8 +48,8 @@ export default function Home() {
               alt="Scholarship Event 3"
               className="w-full h-64 object-cover"
               style={{
-                maxWidth: "100vw",
-                height: "50vh",
+                Width: "100vw",
+                height: "45vh",
                 borderRadius: "8px",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
               }}
@@ -58,24 +59,55 @@ export default function Home() {
       </motion.div>
 
       {/* Eligibility Card with Motion */}
-      <Link to="/eligibility">
+      
         <motion.div
-          className="cursor-pointer border border-blue-300 hover:shadow-xl transition duration-300 rounded-xl p-6 mx-auto my-4"
+          className="cursor-pointer border border-blue-300 hover:shadow-xl transition duration-300 rounded-xl p-6 mx-auto 
+          "
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
           style={{
             marginTop: "10px",
-            width: "95vw",
+            padding: "15px",
+            // width: "95vw",
+            // height: "auto",
+          
             
           }}
         >
-          <h3 className="text-xl font-bold mb-2">Check Eligibility Criteria and Apply</h3>
-          <p className="text-gray-100">
+          <h3 className="text-xl font-bold mb-2" >Check Eligibility Criteria and Apply</h3>
+          <p className="text-gray-100"  >
             Know who can apply for the scholarship and what documents are needed and then apply for the scholarship.
           </p>
-        </motion.div>
+          <div className="flex items-center justify-center gap-6 "
+          style={{marginTop:"10px"}}>
+      {/* Eligibility Card with Motion */}
+      <Link to="/eligibility">
+     <button className="px-5 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-700 transition" style={{padding:"15px"}}>
+        Check Eligibility
+      </button>
       </Link>
+<Lottie
+  animationData={arrowAnim}
+  loop={true}
+  className="w-6 h-6"
+  style={{
+    width: "30vw",
+    height: "10vw",
+    marginTop: "10px",
+  }} // extra small
+/>
+
+      <Link to="/scholarship-form">
+       <button className="px-5 py-3 border text-white bg-blue-900 rounded-lg hover:bg-green-700 transition"
+        style={{padding:"15px"}}>
+        Apply Now
+      </button>
+      </Link>
+
+    </div>
+        </motion.div>
+      
 
       {/* Selection Process Section */}
       <section className="py-16 bg-gray-100">

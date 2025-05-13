@@ -2,7 +2,7 @@ import React from "react";
 import "../index.css"; 
 export default function Fincharcha() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 lg:px-8 font-sans">
       <div className="max-w-5xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -20,14 +20,14 @@ export default function Fincharcha() {
           <h2 className="text-3xl font-bold text-blue-900 mb-6">
             Program Overview
           </h2>
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+          <p className="text-lg text-gray-700 mb-6 leading-relaxed" style={{padding:"5px"}}>
             <strong className="text-blue-900">FinCharcha</strong> focuses on
             developing the ability to manage personal finance matters
             efficiently. In an era where digital transactions dominate,
             financial literacy becomes crucial for inclusion and avoiding debt
             traps.
           </p>
-          <div className="bg-blue-100 border-l-4 border-blue-900 p-4 rounded-r-lg">
+          <div className="bg-blue-100 border-l-4 border-blue-900 p-4 rounded-r-lg" >
             <p className="text-blue-800 italic">
               "Financial literacy is not just about money—it's about empowerment
               and creating opportunities for growth."
@@ -42,8 +42,8 @@ export default function Fincharcha() {
           </h2>
 
           {/* Model 1 */}
-          <div className="flex space-x-2 p-3 px-3"  id="displayBlock"  >
-            <div className="space-x-2" style={{margin:"0px 10px 10px 10px "}}>
+          <div className="flex space-x-2 p-3 px-3"  id="displayBlock"   >
+            <div className="space-x-2" style={{margin:"0px 5px 5px 5px "}}>
             <img
                 src="/images/photo4.jpg"
                 alt="Community Engagement Model"
@@ -56,7 +56,8 @@ export default function Fincharcha() {
                 }}
               />
             </div>
-            <div  className="items-center mb-4 space-x-2">
+            <div  className="items-center mb-4 space-x-2"
+            style={{padding:"5px"}}>
             <h3 className="text-2xl font-semibold text-gray-800">
                   1. Community Engagement Model
                 </h3>
@@ -142,7 +143,7 @@ export default function Fincharcha() {
             </div>
           </div>
         <div className="flex" id="displayBlock">
-        <div>
+        <div style={{padding:"5px"}}>
           <h3 className="text-2xl font-semibold text-gray-800">
                   2. Organizational Training
                 </h3>
@@ -154,7 +155,7 @@ export default function Fincharcha() {
                   platforms.
                 </p>
           </div>
-          <div className="space-x-2" style={{margin:"0px 10px 10px 10px"}}>
+          <div className="space-x-2" style={{margin:"0px 5px 5px 5px"}}>
           <img
                 src="/images/photo5.jpeg"
                 alt="Organizational Training Model"

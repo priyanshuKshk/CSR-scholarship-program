@@ -3,10 +3,10 @@ import React from "react";
 import "../index.css";
 const Saarthi = () => {
   return (
-    <main className="min-h-screen bg-gradient-to-tr from-blue-100 via-indigo-100 to-purple-200 p-6 flex items-center justify-center">
+    <main className="min-h-screen bg-gradient-to-tr from-blue-100 via-indigo-100 to-purple-200  flex items-center justify-center">
       <motion.section
 
-        className="bg-white/70 backdrop-blur-lg border border-white/30 rounded-3xl shadow-2xl max-w-6xl w-full overflow-hidden"
+        className="bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl max-w-6xl w-full overflow-hidden"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -24,26 +24,32 @@ const Saarthi = () => {
         </div>
 
         {/* Section 1: Guidance & Mentoring */}
-        <div className="grid md:grid-cols-2 items-center gap-8 px-10 py-12" id="displayFlex">
+        <div className="grid md:grid-cols-2 items-center gap-8 px-10 py-12 displayFlex" >
+          <div>
           <motion.img
             src="/images/saarthi1.jpeg"
             alt="Career Guidance"
-            className="w-60 h-60 object-cover rounded-full mx-auto shadow-xl"
+            className="rounded-full object-cover mx-auto shadow-xl md:block"
+            
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
             style={{
-                maxWidth: "35vw",
+                Width: "100vw",
                 height: "auto",
                 borderRadius: "8px",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                 margin: "10px ",
+                padding:"5px"
               }}
-          />
+          /></div>
           <motion.div
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
+            style={{ marginLeft: "15px",
+              padding:"5px"
+             }}
           >
             <h2 className="text-2xl font-bold text-indigo-700 mb-2">Career Guidance & Mentoring</h2>
             <ul className=" pl-5 space-y-2 text-gray-800 text-lg  rounded-xl shadow-lg p-8 mb-16">
@@ -53,27 +59,13 @@ const Saarthi = () => {
               <li>Exposure to diverse career paths beyond conventional options.</li>
             </ul>
           </motion.div>
-          <motion.img
-            src="/images/saarthi2.jpeg"
-            alt="Career Guidance"
-            className="w-60 h-60 object-cover rounded-full mx-auto shadow-xl hidden md:block"
-            
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            style={{
-                maxWidth: "35vw",
-                height: "auto",
-                borderRadius: "8px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                margin: "10px ",
-              }}
-          />
+        
         </div>
 
         {/* Section 2: Workshops and Skill Awareness */}
-        <div className="  grid md:grid-cols-2 items-center gap-8 px-10 pb-12" id="displayFlex">
-          <motion.div
+        <div className="  grid md:grid-cols-2 items-center gap-8 px-10 pb-12 displayFlex" >
+          <div>
+              <motion.div
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -87,6 +79,9 @@ const Saarthi = () => {
               <li>Free access to career-related resources and webinars.</li>
             </ul>
           </motion.div>
+          </div>
+        
+          <div>
           <motion.img
             src="/images/saarthi3.jpeg"
             alt="Workshops"
@@ -95,13 +90,14 @@ const Saarthi = () => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
             style={{
-                maxWidth: "35vw",
+                Width: "100vw",
                 height: "auto",
                 borderRadius: "8px",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                 margin: "10px ",
               }}
           />
+          </div>
         </div>
       </motion.section>
     </main>
