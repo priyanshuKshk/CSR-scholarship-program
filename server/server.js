@@ -17,6 +17,11 @@ app.use(express.json());
 require('dotenv').config();
 app.use(cors());
 
+// OR allow specific origin only:
+app.use(cors({
+  origin: 'https://csr-scholarship-program.onrender.com'
+}));
+
 // Add this at the top if you want to use `dotenv` directly
 
 // Connect to MongoDB
@@ -93,15 +98,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 const appendToSheet = require("./utils/googleSheet.js");
-app.get('/test-sheet', async (req, res) => {
-  try {
-    await appendToSheet(["Test", "User", "test@gmail.com", "1234567890", "B.Tech", "12th", "88%", "", "Essay"]);
-    res.send("Sheet appended successfully");
-  } catch (err) {
-    console.error("Google Sheets error:", err);
-    res.status(500).send("Failed to append to sheet");
-  }
-});
+
 
 // Scholarship form submission route
 app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => {
@@ -122,14 +119,14 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
       marksheet,
       essay,
     });
-console.log("Saving student to DB...");
+
      const student = await newStudent.save();
 
-     console.log("Appending to Google Sheet...");
+  
      await appendToSheet([
       firstName, lastName, email, phone, course, qualification, marks, marksheet, essay
     ]);
-console.log("Success!");
+
 
   res.status(200).json({ message: "Application submitted successfully!" });
   
