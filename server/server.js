@@ -21,7 +21,7 @@ app.use(cors());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log("MongoDB connecteded"))
+.then(() => console.log("MongoDB connected"))
 .catch((err) => console.error("MongoDB connection error:", err));
 
 // Ensure uploads folder exists
@@ -62,8 +62,9 @@ EmployeeModel.findOne({ email }).then((user) => {
 });
 
 // Signup route
+
+
 const bcrypt = require("bcrypt");
-const appendToSheet = require("./utils/googleSheet.js");
 app.post("/signup", async (req, res) => {
   try {
     const { firstName,lastName,phone,email,password,} = req.body;
@@ -91,7 +92,16 @@ app.post("/signup", async (req, res) => {
     res.status(500).json({ error: "Failed to sign up user" });
   }
 });
-
+const appendToSheet = require("./utils/googleSheet.js");
+app.get('/test-sheet', async (req, res) => {
+  try {
+    await appendToSheet(["Test", "User", "test@gmail.com", "1234567890", "B.Tech", "12th", "88%", "", "Essay"]);
+    res.send("Sheet appended successfully");
+  } catch (err) {
+    console.error("Google Sheets error:", err);
+    res.status(500).send("Failed to append to sheet");
+  }
+});
 
 // Scholarship form submission route
 app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => {
@@ -112,12 +122,14 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
       marksheet,
       essay,
     });
-
+console.log("Saving student to DB...");
      const student = await newStudent.save();
-     await appendToSheet([
-      firstName, lastName, email, phone, course, qualification, marks, essay, marksheet
-    ]);
 
+     console.log("Appending to Google Sheet...");
+     await appendToSheet([
+      firstName, lastName, email, phone, course, qualification, marks, marksheet, essay
+    ]);
+console.log("Success!");
 
   res.status(200).json({ message: "Application submitted successfully!" });
   
@@ -126,6 +138,7 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
     console.error("Server error:", err);
     res.status(500).send("Something went wrong");
   }
+
 });
 
 // Serve uploaded files
@@ -137,11 +150,7 @@ app.get('/', (req, res) => {
 });
 
 // Get PORT from environment (Render will provide this)
-const PORT = process.env.PORT;
-
-if (!PORT) {
-  throw new Error("❌ PORT is not defined. Render requires binding to process.env.PORT.");
-}
+const PORT = 3001||process.env.PORT;
 
 // Start server
 app.listen(PORT, () => {

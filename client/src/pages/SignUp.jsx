@@ -26,7 +26,7 @@ const { login } = useAuth();
 
     axios
       .post(
-        "https://csr-scholarship-program-1.onrender.com/signup"||
+         "https://csr-scholarship-program-1.onrender.com/signup"||
           "http://localhost:3001/signup",
         { firstName, lastName, phone ,email, password }
       )
