@@ -38,13 +38,15 @@ export default function Footer() {
           <h3 className="text-white font-semibold mb-3 uppercase tracking-wide">Contact</h3>
           <ul className="space-y-2 text-gray-200">
             <li className="flex items-center gap-2">
-              <FaMapMarkerAlt className="text-blue-300" /> Chandigarh India
+              <FaMapMarkerAlt className="text-blue-300" /> Office no: 370 Bal Mandir School, New Jagatpura,
+              <br /> 
+              Hoshiarpur (Punjab)
             </li>
             <li className="flex items-center gap-2">
-              <FaPhoneAlt className="text-blue-300" /> 8847586xxx4, 89687544xxx
+              <FaPhoneAlt className="text-blue-300" /> 1882318708
             </li>
             <li className="flex items-center gap-2">
-              <FaEnvelope className="text-blue-300" /> info@edusupport.org
+              <FaEnvelope className="text-blue-300" /> EFA@gmail.com
             </li>
           </ul>
         </div>
