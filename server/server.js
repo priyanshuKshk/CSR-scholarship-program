@@ -18,9 +18,7 @@ require('dotenv').config();
 
 
 // OR allow specific origin only:
-app.use(cors({
-  origin: 'https://csr-scholarship-program.onrender.com'
-}));
+app.use(cors());
 
 // Add this at the top if you want to use `dotenv` directly
 
