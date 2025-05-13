@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 require('dotenv').config();
-app.use(cors());
+
 
 // OR allow specific origin only:
 app.use(cors({
