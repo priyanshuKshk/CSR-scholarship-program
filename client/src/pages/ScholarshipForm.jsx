@@ -29,8 +29,16 @@ const ScholarshipForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) =>  { data.append(key, key === "marksheet" ? fileInput : value);
+   Object.entries(formData).forEach(([key, value]) => {
+    if (key !== "marksheet") {
+      data.append(key, value);
+    }
   });
+
+  // Append the file separately
+  if (fileInput) {
+    data.append("marksheet", fileInput);
+  }
 
     try {
       const response = await fetch(

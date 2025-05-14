@@ -121,10 +121,15 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
      const student = await newStudent.save();
 
   
-     await appendToSheet([
-      firstName, lastName, email, phone, course, qualification, marks, marksheet, essay
-    ]);
-
+  try {
+  await appendToSheet([
+    firstName, lastName, email, phone, course, 
+    qualification, marks, marksheet, essay
+  ]);
+} catch (e) {
+  console.error("Failed to update Google Sheet:", e);
+  // Optionally continue processing since MongoDB save succeeded
+}
 
   res.status(200).json({ message: "Application submitted successfully!" });
   
@@ -140,9 +145,7 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
-app.get('/', (req, res) => {
-  res.send('✅ Server is running!');
-});
+
 
 // Get PORT from environment (Render will provide this)
 const PORT = process.env.PORT||3001;
