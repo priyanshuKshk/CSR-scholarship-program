@@ -43,8 +43,19 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + "-" + file.originalname);
   }
 });
-const upload = multer({ storage });
-
+const upload = multer({ storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === 'application/pdf' || file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error("Invalid file type"), false);
+    }
+  },
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB max size
+  }
+});
+const bcrypt = require("bcrypt");
 // Login route
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -67,7 +78,7 @@ EmployeeModel.findOne({ email }).then((user) => {
 // Signup route
 
 
-const bcrypt = require("bcrypt");
+
 app.post("/signup", async (req, res) => {
   try {
     const { firstName,lastName,phone,email,password,} = req.body;
@@ -120,18 +131,22 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
 
      const student = await newStudent.save();
 
-  
+  try{
      await appendToSheet([
       firstName, lastName, email, phone, course, qualification, marks, marksheet, essay
     ]);
-
+} catch (sheetErr) {
+  console.error("Google Sheet Append Error:", sheetErr.message);
+  // Don't fail the whole request, just log it
+}
 
   res.status(200).json({ message: "Application submitted successfully!" });
   
   
   } catch (err) {
-    console.error("Server error:", err);
-    res.status(500).send("Something went wrong");
+  console.error("Server error:", err);
+res.status(500).json({ error: "Form submission failed", message: err.message });
+
   }
 
 });
@@ -145,7 +160,7 @@ app.get('/', (req, res) => {
 });
 
 // Get PORT from environment (Render will provide this)
-const PORT = 3001||process.env.PORT;
+const PORT = process.env.PORT||3001;
 
 // Start server
 app.listen(PORT, () => {

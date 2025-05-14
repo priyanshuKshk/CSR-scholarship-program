@@ -36,7 +36,7 @@ const ScholarshipForm = () => {
     try {
       const response = await fetch(
          "https://csr-scholarship-program-1.onrender.com/api/scholarship-form" ,
-      //  "http://localhost:3001/api/scholarship-form",
+        // "http://localhost:3001/api/scholarship-form",
        {
         method: "POST",
         body: data,
@@ -49,10 +49,10 @@ const ScholarshipForm = () => {
         const errorText = await response.text();
         alert("Server error: " + errorText);
       }
-    } catch (err) {
-      console.error("Submit failed:", err);
-      alert("Something went wrong.");
-    }
+    } catch(err ) {
+  console.error("Form submission failed:", err.response?.data || err.message);
+};
+  
   };
 
   return (
