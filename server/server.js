@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 const fs = require("fs");
@@ -18,14 +18,7 @@ require('dotenv').config();
 
 
 // OR allow specific origin only:
-const cors = require("cors");
-
-app.use(cors({
-  origin: "https://csr-scholarship-program.onrender.com", 
-  methods: ["GET", "POST"],
-  credentials: true
-}));
-
+app.use(cors());
 
 // Add this at the top if you want to use `dotenv` directly
 
@@ -50,19 +43,8 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + "-" + file.originalname);
   }
 });
-const upload = multer({ storage,
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype === 'application/pdf' || file.mimetype.startsWith('image/')) {
-      cb(null, true);
-    } else {
-      cb(new Error("Invalid file type"), false);
-    }
-  },
-  limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB max size
-  }
-});
-const bcrypt = require("bcrypt");
+const upload = multer({ storage });
+
 // Login route
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -85,7 +67,7 @@ EmployeeModel.findOne({ email }).then((user) => {
 // Signup route
 
 
-
+const bcrypt = require("bcrypt");
 app.post("/signup", async (req, res) => {
   try {
     const { firstName,lastName,phone,email,password,} = req.body;
@@ -138,14 +120,11 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
 
      const student = await newStudent.save();
 
-  try{
+  
      await appendToSheet([
       firstName, lastName, email, phone, course, qualification, marks, marksheet, essay
     ]);
-} catch (sheetErr) {
-  console.error("Google Sheet Append Error:", sheetErr.message);
-  // Don't fail the whole request, just log it
-}
+
 
   res.status(200).json({ message: "Application submitted successfully!" });
   
@@ -166,7 +145,7 @@ app.get('/', (req, res) => {
 });
 
 // Get PORT from environment (Render will provide this)
-const PORT = process.env.PORT||3001;
+const PORT = 3001||process.env.PORT;
 
 // Start server
 app.listen(PORT, () => {
