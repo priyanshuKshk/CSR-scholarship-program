@@ -144,9 +144,8 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
   
   
   } catch (err) {
-  console.error("Server error:", err);
-res.status(500).json({ error: "Form submission failed", message: err.message });
-
+    console.error("Server error:", err);
+    res.status(500).send("Something went wrong");
   }
 
 });
