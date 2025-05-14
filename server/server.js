@@ -8,6 +8,7 @@ const multer = require("multer");
 const ExcelJS = require('exceljs');
 const EmployeeModel = require("./models/Employee.js");
 const { default: StudentModel } = require("./models/StudentModel.js");
+const nodemailer = require("nodemailer");
 // const StudentModel = require("./models/StudentModel.js"); // Make sure this points to the correct Student schema file
 
 
@@ -121,7 +122,28 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
     });
 
      const student = await newStudent.save();
+ try {
+    // Create transporter using Gmail
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER, // your Gmail
+        pass: process.env.EMAIL_PASS  // app password
+      }
+    });
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Scholarship Application Submitted",
+      text: `Dear ${firstName} ${lastName},\n\nThank you for applying for the scholarship. We will review your application and get back to you soon.\n\nBest regards,\nSMG Scholarship Team`
+    };
 
+    await transporter.sendMail(mailOptions);
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ success: false, error: "Email failed" });
+  }
   
   try {
   await appendToSheet([
