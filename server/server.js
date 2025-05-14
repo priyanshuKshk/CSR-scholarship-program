@@ -124,19 +124,19 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
   
     const marksheet = req.file?.filename || "";
 
-    const newStudent = new StudentModel({
-      firstName,
-      lastName,
-      email,
-      phone,
-      course,
-      qualification,
-      marks,
-      marksheet,
-      essay,
-    });
+    // const newStudent = new StudentModel({
+    //   firstName,
+    //   lastName,
+    //   email,
+    //   phone,
+    //   course,
+    //   qualification,
+    //   marks,
+    //   marksheet,
+    //   essay,
+    // });
 
-     const student = await newStudent.save();
+    //  const student = await newStudent.save();
 
   try{
      await appendToSheet([

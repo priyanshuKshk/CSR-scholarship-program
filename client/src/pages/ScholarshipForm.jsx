@@ -29,17 +29,13 @@ const ScholarshipForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {  if (key === "marksheet" && fileInput) {
-      data.append(key, fileInput);
-    } else {
-      data.append(key, value);
-    }
+    Object.entries(formData).forEach(([key, value]) =>  { data.append(key, key === "marksheet" ? fileInput : value);
   });
 
     try {
       const response = await fetch(
           "https://csr-scholarship-program-1.onrender.com/api/scholarship-form" ,
-      //  "http://localhost:3001/api/scholarship-form",
+    
        {
         method: "POST",
         body: data,
