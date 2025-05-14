@@ -19,6 +19,8 @@ import Aaganwadi from './pages/Aaganwadi'
 import Testimonial from './pages/Testimonials'
 import AnnualReport from './pages/AnnualReport'
 import { AuthProvider } from './context/AuthContext'
+import SubmitPage from './pages/SubmitPage'
+import FailurePage from './pages/FailurePage'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -39,6 +41,8 @@ const router = createBrowserRouter(
       <Route path="/contact" element={<ContactUs/>} />
       <Route path="/testimonials" element={<Testimonial/>} />
       <Route path="/annual-report" element={<AnnualReport/>} />
+      <Route path="/success" element={<SubmitPage/>} />
+      <Route path="/failure" element={<FailurePage/>} />
 
 
       

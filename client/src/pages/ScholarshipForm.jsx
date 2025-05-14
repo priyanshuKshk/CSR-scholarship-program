@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { User, Mail, Phone, FileText, GraduationCap, BookOpenCheck } from "lucide-react";
 
@@ -29,29 +29,32 @@ const ScholarshipForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, key === "marksheet" ? fileInput : value);
-    });
+    Object.entries(formData).forEach(([key, value]) => {  if (key === "marksheet" && fileInput) {
+      data.append(key, fileInput);
+    } else {
+      data.append(key, value);
+    }
+  });
 
     try {
       const response = await fetch(
-        //  "https://csr-scholarship-program-1.onrender.com/api/scholarship-form" ,
-        "http://localhost:3001/api/scholarship-form",
+          "https://csr-scholarship-program-1.onrender.com/api/scholarship-form" ,
+      //  "http://localhost:3001/api/scholarship-form",
        {
         method: "POST",
         body: data,
       });
 
       if (response.ok) {
-        alert("Form submitted successfully!");
-        navigate("/home");
+      
+        navigate("/success");
       } else {
         const errorText = await response.text();
         alert("Server error: " + errorText);
       }
     } catch (err) {
       console.error("Submit failed:", err);
-      alert("Something went wrong.");
+     navigate("/failure");
     }
   };
 
@@ -126,9 +129,10 @@ const ScholarshipForm = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
             type="submit"
+            
             className="w-full bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-lg"
           >
-            🚀 Submit Application
+          🚀 Submit Application
           </motion.button>
         </form>
       </motion.section>
