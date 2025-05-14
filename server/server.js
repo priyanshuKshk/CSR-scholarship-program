@@ -145,7 +145,7 @@ app.get('/', (req, res) => {
 });
 
 // Get PORT from environment (Render will provide this)
-const PORT = 3001||process.env.PORT;
+const PORT = process.env.PORT||3001;
 
 // Start server
 app.listen(PORT, () => {
