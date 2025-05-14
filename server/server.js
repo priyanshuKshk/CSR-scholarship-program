@@ -104,7 +104,9 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
     try {
     const { firstName, lastName, email, phone, course, qualification, marks, essay } = req.body;
   
-    const marksheet = req.file?.filename || "";
+    const marksheet = req.file
+  ? `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`
+  : "";
 
     const newStudent = new StudentModel({
       firstName,
