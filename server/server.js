@@ -135,7 +135,40 @@ app.post('/api/scholarship-form',upload.single("marksheet") ,async(req, res) => 
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Scholarship Application Submitted",
-      text: `Dear ${firstName} ${lastName},\n\nThank you for applying for the scholarship. We will review your application and get back to you soon.\n\nBest regards,\nSMG Scholarship Team`
+      html: 
+      `
+      <p>Dear <strong>${firstName} ${lastName}</strong>,</p>
+
+<p>
+Thank you for applying for the <strong>SMG Scholarship</strong>. We will review your application and get back to you soon.<br>
+If selected, our team will connect with you within <strong>7 Days</strong>.
+</p>
+
+<p><strong>Best Regards<br>SMG ELECTRIC SCOOTERS TEAM</strong></p>
+
+<p>
+<strong>Email :-</strong> 
+<a href="mailto:Smgelectricscootersltd@gmail.com"><strong>Smgelectricscootersltd@gmail.com</strong></a><br>
+<strong>Contact Us :-</strong> 
+<a href="tel:+911882318708"><strong>+91 1882 318708</strong></a><br>
+<strong>Office :-</strong> Office no 370&nbsp;&nbsp;Sutheri Road Eminent Complex Hoshiarpur 146001 Punjab.
+</p>
+
+<p>
+<strong>For more information visit:</strong><br>
+<a href="https://smg-dev.vercel.app/"><strong>Website</strong></a> |
+<a href="https://www.youtube.com/@smgelectricscootersltd"><strong>Youtube</strong></a> |
+<a href="https://www.instagram.com/_smgelectricscootersltd?igsh=c2w5dXd0Z2oyeXo3"><strong>Instagram</strong></a>
+</p>
+<img src="cid:logo" alt="SMG Logo" style="width: 100px; height: auto; margin-bottom: 20px;" />`
+,
+  attachments: [
+    {
+      filename: 'image.png',
+      path: './assets/image.png', // Local path to your logo image
+      cid: 'logo' // same as the cid used in <img src="cid:logo" />
+    }
+  ]
     };
 
     await transporter.sendMail(mailOptions);
