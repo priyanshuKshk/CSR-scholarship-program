@@ -8,117 +8,74 @@ import 'swiper/css/navigation'
 import { motion } from 'framer-motion'
 import Lottie from "lottie-react";
 import arrowAnim from "../arrow.json";
+
 export default function Home() {
   return (
-    <div className="bg-gradient-to-r from-primary to-secondary text-black" style={{ paddingTop: "10px" }}>
+    <div className="bg-gradient-to-r from-primary to-secondary text-black pt-2">
       
-      {/* Swiper Section with Motion */}
+      {/* Swiper Section */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <Swiper
-          modules={[Pagination, Navigation, Autoplay]}
-          spaceBetween={30}
-          slidesPerView={1}
-          pagination={{ clickable: true }}
-          navigation
-          autoplay={{ delay: 3000, disableOnInteraction: true }}
-          loop={true}
-          className="rounded-lg overflow-hidden"
-        >
-          <SwiperSlide>
-            <img
-              src="/images/smgHome1.jpeg"
-              alt="Scholarship Event 2"
-              className="w-full h-64 object-cover"
-              style={{
-                Width: "100vw",
-                height: "45vh",
-                borderRadius: "8px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-              }}
-            />
-          </SwiperSlide>
+      <Swiper
+  modules={[Pagination, Navigation, Autoplay]}
+  spaceBetween={30}
+  slidesPerView={1}
+  pagination={{ clickable: true }}
+  navigation
+  autoplay={{ delay: 3000, disableOnInteraction: true }}
+  loop={true}
+  className="rounded-lg overflow-hidden"
+>
+  {["/images/smgHome1.jpeg", "/images/smgHome2.jpeg"].map((img, index) => (
+    <SwiperSlide key={index} className="flex justify-center items-center bg-white">
+      <img
+        src={img}
+        alt={`Scholarship Event ${index + 1}`}
+        className="w-full h-[300px] md:h-[500px] object-contain"
+      />
+    </SwiperSlide>
+  ))}
+</Swiper>
 
-          <SwiperSlide>
-            <img
-              src="/images/smgHome2.jpeg"
-              alt="Scholarship Event 3"
-              className="w-full h-64 object-cover"
-              style={{
-                Width: "100vw",
-                height: "45vh",
-                borderRadius: "8px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-              }}
-            />
-          </SwiperSlide>
-        </Swiper>
       </motion.div>
 
-      {/* Eligibility Card with Motion */}
-      
-        <motion.div
-          className="cursor-pointer border border-blue-300 hover:shadow-xl transition duration-300 rounded-xl p-6 mx-auto 
-          "
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          style={{
-            marginTop: "10px",
-            padding: "15px",
-            // width: "95vw",
-            // height: "auto",
-          
-            
-          }}
-        >
-          <h3 className="text-xl font-bold mb-2" >Check Eligibility Criteria and Apply</h3>
-          <p className="text-gray-100"  >
-            Know who can apply for the scholarship and what documents are needed and then apply for the scholarship.
-          </p>
-          <div className="flex items-center justify-center gap-6 "
-          style={{marginTop:"10px"}}>
-      {/* Eligibility Card with Motion */}
-      <Link to="/eligibility">
-     <button className="px-5 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-700 transition" style={{padding:"15px"}}>
-        Check Eligibility
-      </button>
-      </Link>
-<Lottie
-  animationData={arrowAnim}
-  loop={true}
-  className="w-6 h-6"
-  style={{
-    width: "30vw",
-    height: "10vw",
-    marginTop: "10px",
-  }} // extra small
-/>
+      {/* Eligibility Card */}
+      <motion.div
+        className="cursor-pointer border border-blue-300 hover:shadow-xl transition duration-300 rounded-xl p-6 mx-auto mt-4 w-[95%] md:w-[80%] bg-white text-black"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+      >
+        <h3 className="text-xl font-bold mb-2">Check Eligibility Criteria and Apply</h3>
+        <p className="text-gray-700 mb-4">
+          Know who can apply for the scholarship and what documents are needed and then apply for the scholarship.
+        </p>
+        
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+          <Link to="/eligibility">
+            <button className="px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-700 transition">
+              Check Eligibility
+            </button>
+          </Link>
 
-      <Link to="/scholarship-form">
-       <button className="px-5 py-3 border text-white bg-blue-900 rounded-lg hover:bg-green-700 transition"
-        style={{padding:"15px"}}>
-        Apply Now
-      </button>
-      </Link>
+          <div className="w-24 md:w-36">
+            <Lottie animationData={arrowAnim} loop={true} />
+          </div>
 
-    </div>
-        </motion.div>
-      
+          <Link to="/scholarship-form">
+            <button className="px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-green-700 transition">
+              Apply Now
+            </button>
+          </Link>
+        </div>
+      </motion.div>
 
       {/* Selection Process Section */}
-      <section className="py-16 bg-gray-100">
-        <div
-          className="container mx-auto px-4"
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "20px",
-          }}
-        >
+      <section className="py-16 bg-gray-100 text-black">
+        <div className="container mx-auto px-4 max-w-6xl">
           <h2 className="text-3xl font-bold text-center mb-12">Our Selection Process</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             {[
@@ -126,26 +83,21 @@ export default function Home() {
                 icon: "📄",
                 title: "Apply",
                 desc: "Fill the application form online with all required documents.",
-              
               },
               {
                 icon: "🔍",
                 title: "Shortlisting",
                 desc: "Our team carefully evaluates all applications.",
-                bg:""
               },
               {
                 icon: "💬",
                 title: "Interview",
                 desc: "Selected candidates are invited for a personal interview.",
-              
-                textColor: "white",
               },
               {
                 icon: "🎉",
                 title: "Selection",
                 desc: "Final candidates are awarded the scholarship.",
-                bg: "",
               },
             ].map((step, i) => (
               <motion.div
@@ -155,14 +107,10 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.2, duration: 0.6 }}
                 viewport={{ once: true }}
-                style={{
-                  margin: "5px",
-                  backgroundColor: step.bg,
-                }}
               >
                 <div className="text-5xl mb-4">{step.icon}</div>
-                <h3 className="text-xl text-gray-100 font-semibold mb-2">{step.title}</h3>
-                <p className="text-gray-100">{step.desc}</p>
+                <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                <p className="text-gray-700">{step.desc}</p>
               </motion.div>
             ))}
           </div>
