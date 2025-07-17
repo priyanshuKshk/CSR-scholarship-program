@@ -58,7 +58,7 @@ const Header = () => {
           </Link>
 
           <Link to="/">
-            <span className="text-lg sm:text-2xl font-bold text-blue-900 hidden sm:inline-block">
+            <span className="text-lg sm:text-2xl font-bold text-blue-900 hidden lg:inline-block">
               Scholarships
             </span>
           </Link>
